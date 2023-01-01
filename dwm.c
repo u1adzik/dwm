@@ -181,6 +181,7 @@ static void killclient(const Arg *arg);
 static void manage(Window w, XWindowAttributes *wa);
 static void mappingnotify(XEvent *e);
 static void maprequest(XEvent *e);
+static void monocle(Monitor *m);
 static void motionnotify(XEvent *e);
 static void movemouse(const Arg *arg);
 static Client *nexttiled(Client *c);
@@ -929,16 +930,26 @@ grabkeys(void)
 {
 	updatenumlockmask();
 	{
-		unsigned int i, j;
+		unsigned int i, j, k;
 		unsigned int modifiers[] = { 0, LockMask, numlockmask, numlockmask|LockMask };
-		KeyCode code;
+		int start, end, skip;
+		KeySym *syms;
 
 		XUngrabKey(dpy, AnyKey, AnyModifier, root);
-		for (i = 0; i < LENGTH(keys); i++)
-			if ((code = XKeysymToKeycode(dpy, keys[i].keysym)))
-				for (j = 0; j < LENGTH(modifiers); j++)
-					XGrabKey(dpy, code, keys[i].mod | modifiers[j], root,
-						True, GrabModeAsync, GrabModeAsync);
+		XDisplayKeycodes(dpy, &start, &end);
+		syms = XGetKeyboardMapping(dpy, start, end - start + 1, &skip);
+		if (!syms)
+			return;
+		for (k = start; k <= end; k++)
+			for (i = 0; i < LENGTH(keys); i++)
+				/* skip modifier codes, we do that ourselves */
+				if (keys[i].keysym == syms[(k - start) * skip])
+					for (j = 0; j < LENGTH(modifiers); j++)
+						XGrabKey(dpy, k,
+							 keys[i].mod | modifiers[j],
+							 root, True,
+							 GrabModeAsync, GrabModeAsync);
+		XFree(syms);
 	}
 }
 
@@ -1073,6 +1084,21 @@ maprequest(XEvent *e)
 		return;
 	if (!wintoclient(ev->window))
 		manage(ev->window, &wa);
+}
+
+void
+monocle(Monitor *m)
+{
+	unsigned int n = 0;
+	Client *c;
+
+	for (c = m->clients; c; c = c->next)
+		if (ISVISIBLE(c))
+			n++;
+	if (n > 0) /* override layout symbol */
+		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
+	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
+		resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
 }
 
 void
@@ -1227,12 +1253,26 @@ void
 resizeclient(Client *c, int x, int y, int w, int h)
 {
 	XWindowChanges wc;
+	unsigned int n;
+	Client *nbc;
 
 	c->oldx = c->x; c->x = wc.x = x;
 	c->oldy = c->y; c->y = wc.y = y;
 	c->oldw = c->w; c->w = wc.width = w;
 	c->oldh = c->h; c->h = wc.height = h;
 	wc.border_width = c->bw;
+
+	for (n = 0, nbc = nexttiled(c->mon->clients); nbc; nbc = nexttiled(nbc->next), n++);
+
+	if (c->isfloating || c->mon->lt[c->mon->sellt]->arrange == NULL) {
+	} else {
+		if (c->mon->lt[c->mon->sellt]->arrange == monocle || n == 1) {
+			wc.border_width = 0;
+			c->w = wc.width += c->bw * 2;
+			c->h = wc.height += c->bw * 2;
+		}
+	}
+
 	XConfigureWindow(dpy, c->win, CWX|CWY|CWWidth|CWHeight|CWBorderWidth, &wc);
 	configure(c);
 	XSync(dpy, False);
