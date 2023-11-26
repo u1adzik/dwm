@@ -5,7 +5,7 @@ static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "iosevka:size=11:antialias=true:autohint=true", "AppleColorEmoji:pixelsize=11:antialias=true:autohint=true" };
+static const char *fonts[]          = { "SFMono Nerd Font Mono:size=11:antialias=true:autohint=true", "AppleColorEmoji:pixelsize=11:antialias=true:autohint=true" };
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { "#839496", "#002b36", "#002b36" },
