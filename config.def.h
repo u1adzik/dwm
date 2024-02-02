@@ -8,12 +8,12 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "SFMono Nerd Font Mono:size=11:antialias=true:autohint=true", "AppleColorEmoji:pixelsize=11:antialias=true:autohint=true" };
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { "#839496", "#002b36", "#002b36" },
-	[SchemeSel]  = { "#839496", "#073642", "#073642" },
+	[SchemeNorm] = { "#586e75", "#002b36", "#002b36" },
+	[SchemeSel]  = { "#839496", "#002b36", "#073642" },
 };
 
 /* tagging */
-static const char *tags[] = { "adzin", "dva", "try", "čatyry", "piać" };
+static const char *tags[] = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
 
 static const Rule rules[] = {
@@ -23,7 +23,6 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "TelegramDesktop",    NULL,       NULL,                    1 << 2,      0,           -1 },
-	{ "firefox",          NULL,       "Picture-in-Picture",    0,           1,           -1 },
 
 };
 
@@ -35,7 +34,7 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
+	{ "[t]",      tile },    /* first entry is default */
 };
 
 /* key definitions */
@@ -51,7 +50,7 @@ static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          SHCMD("dmenu_run") },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          SHCMD("st") },
-	{ MODKEY,                       XK_w,      spawn,          SHCMD("firefox") },
+	{ MODKEY,                       XK_w,      spawn,          SHCMD("chromium") },
 	{ 0,                            0x1008FF11,spawn,          SHCMD("amixer set Master -q 10%-") },
 	{ 0,                            0x1008FF12,spawn,          SHCMD("amixer set Master -q toggle") },
 	{ 0,                            0x1008FF13,spawn,          SHCMD("amixer set Master -q 10%+") },
@@ -71,6 +70,10 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_3,                      2)
 	TAGKEYS(                        XK_4,                      3)
 	TAGKEYS(                        XK_5,                      4)
+	TAGKEYS(                        XK_6,                      5)
+	TAGKEYS(                        XK_7,                      6)
+	TAGKEYS(                        XK_8,                      7)
+	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 
 };
