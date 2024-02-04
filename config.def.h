@@ -3,6 +3,7 @@
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "SFMono Nerd Font Mono:size=11:antialias=true:autohint=true", "AppleColorEmoji:pixelsize=11:antialias=true:autohint=true" };
@@ -15,15 +16,15 @@ static const char *colors[][3]      = {
 /* tagging */
 static const char *tags[] = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "TelegramDesktop",    NULL,       NULL,                    1 << 2,      0,           -1 },
-
+	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
+	{ "TelegramDesktop",   NULL,     NULL, 1 << 2,         0,          0,           0,        -1 },
+	{ "st-256color",      NULL,     NULL,           0,         0,          1,           0,        -1 },
+	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
 /* layout(s) */
@@ -34,7 +35,7 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[t]",      tile },    /* first entry is default */
+	{ "[tile]",      tile },    /* first entry is default */
 };
 
 /* key definitions */
@@ -45,6 +46,7 @@ static const Layout layouts[] = {
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -85,4 +87,3 @@ static const Button buttons[] = {
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
 };
-
