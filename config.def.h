@@ -23,7 +23,7 @@ static const Rule rules[] = {
 	 */
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "TelegramDesktop",   NULL,     NULL, 1 << 2,         0,          0,           0,        -1 },
-	{ "st-256color",      NULL,     NULL,           0,         0,          1,           0,        -1 },
+	{ "Alacritty",      NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
@@ -51,7 +51,7 @@ static const Layout layouts[] = {
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          SHCMD("dmenu_run") },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          SHCMD("st") },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          SHCMD("alacritty") },
 	{ MODKEY,                       XK_w,      spawn,          SHCMD("firefox") },
 	{ 0,                            0x1008FF11,spawn,          SHCMD("amixer set Master -q 10%-") },
 	{ 0,                            0x1008FF12,spawn,          SHCMD("amixer set Master -q toggle") },
