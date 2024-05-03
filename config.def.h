@@ -52,7 +52,7 @@ static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          SHCMD("dmenu_run") },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          SHCMD("alacritty") },
-	{ MODKEY,                       XK_w,      spawn,          SHCMD("firefox") },
+	{ MODKEY,                       XK_w,      spawn,          SHCMD("chromium") },
 	{ MODKEY,                       XK_f,      spawn,          SHCMD("thunar") },
 	{ 0,                            0x1008FF11,spawn,          SHCMD("amixer set Master -q 10%-") },
 	{ 0,                            0x1008FF12,spawn,          SHCMD("amixer set Master -q toggle") },
