@@ -9,8 +9,8 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Iosevka Nerd Font:size=12:antialias=true:autohint=true", "AppleColorEmoji:pixelsize=12:antialias=true:autohint=true" };
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { "#586e75", "#002b36", "#000000" },
-	[SchemeSel]  = { "#839496", "#002b36", "#000000" },
+	[SchemeNorm] = { "#586e75", "#002b36", "#002b36" },
+	[SchemeSel]  = { "#839496", "#002b36", "#073642" },
 };
 
 /* tagging */
@@ -54,9 +54,9 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          SHCMD("alacritty") },
 	{ MODKEY,                       XK_w,      spawn,          SHCMD("chromium") },
 	{ MODKEY,                       XK_f,      spawn,          SHCMD("thunar") },
-	{ 0,                            0x1008FF11,spawn,          SHCMD("amixer set Master -q 10%-") },
-	{ 0,                            0x1008FF12,spawn,          SHCMD("amixer set Master -q toggle") },
-	{ 0,                            0x1008FF13,spawn,          SHCMD("amixer set Master -q 10%+") },
+	{ 0,                            0x1008FF11,spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-") },
+	{ 0,                            0x1008FF12,spawn,          SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") },
+	{ 0,                            0x1008FF13,spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+") },
 	{ 0,                            0x1008FF02,spawn,          SHCMD("brightnessctl s 5%+") },
 	{ 0,                            0x1008FF03,spawn,          SHCMD("brightnessctl s 5%-") },
 	{ 0,                            XK_Print,  spawn,          SHCMD("maim -u | xclip -selection clipboard -t image/png") },
