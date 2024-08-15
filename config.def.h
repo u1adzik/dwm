@@ -9,8 +9,8 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Iosevka Nerd Font:size=12:antialias=true:autohint=true", "AppleColorEmoji:pixelsize=12:antialias=true:autohint=true" };
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { "#586e75", "#002b36", "#002b36" },
-	[SchemeSel]  = { "#839496", "#002b36", "#073642" },
+	[SchemeNorm] = { "#ff79c6", "#282a36", "#282a36" },
+	[SchemeSel]  = { "#ffb86c", "#282a36", "#303341" },
 };
 
 /* tagging */
@@ -28,7 +28,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
