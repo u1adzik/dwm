@@ -9,8 +9,8 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Iosevka Nerd Font:size=12:antialias=true:autohint=true", "AppleColorEmoji:pixelsize=12:antialias=true:autohint=true" };
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { "#ff79c6", "#282a36", "#282a36" },
-	[SchemeSel]  = { "#ffb86c", "#282a36", "#303341" },
+	[SchemeNorm] = { "#586e75", "#002b36", "#002b36" },
+	[SchemeSel]  = { "#839496", "#002b36", "#073642" },
 };
 
 /* tagging */
